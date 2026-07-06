@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QR Code — Vanamaali Spices</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -120,16 +119,58 @@
     });
 
     function downloadQR() {
-      html2canvas(document.querySelector('.card'), {
-        scale: 3,
-        backgroundColor: '#ffffff',
-        useCORS: true
-      }).then(canvas => {
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL('image/png');
-        a.download = 'vanamaali-qr.png';
-        a.click();
-      });
+      const scale = 3;
+      const cardW = 320, cardH = 480;
+      const W = cardW * scale, H = cardH * scale;
+
+      const out = document.createElement('canvas');
+      out.width = W; out.height = H;
+      const ctx = out.getContext('2d');
+
+      // background + rounded rect
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      const r = 20 * scale;
+      ctx.moveTo(r, 0); ctx.lineTo(W - r, 0);
+      ctx.quadraticCurveTo(W, 0, W, r);
+      ctx.lineTo(W, H - r);
+      ctx.quadraticCurveTo(W, H, W - r, H);
+      ctx.lineTo(r, H); ctx.quadraticCurveTo(0, H, 0, H - r);
+      ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0);
+      ctx.closePath(); ctx.fill();
+
+      // logo
+      const logo = document.querySelector('.logo');
+      const logoSize = 48 * scale;
+      const logoX = (W - logoSize) / 2;
+      ctx.drawImage(logo, logoX, 40 * scale, logoSize, logoSize);
+
+      // qr code
+      const qrCanvas = document.querySelector('#qrcode canvas');
+      const qrSize = 200 * scale;
+      const qrX = (W - qrSize) / 2;
+      ctx.drawImage(qrCanvas, qrX, 120 * scale, qrSize, qrSize);
+
+      // title
+      ctx.fillStyle = '#111111';
+      ctx.font = `bold ${16 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('Vanamaali Spices', W / 2, 352 * scale);
+
+      // subtitle
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = `${11 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+      ctx.fillText('Scan to view digital business card', W / 2, 372 * scale);
+
+      // url
+      ctx.fillStyle = '#d98e0f';
+      ctx.font = `500 ${10 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+      ctx.fillText('card.vanamaalispices.in', W / 2, 400 * scale);
+
+      const a = document.createElement('a');
+      a.href = out.toDataURL('image/png');
+      a.download = 'vanamaali-qr.png';
+      a.click();
     }
   </script>
 </body>
