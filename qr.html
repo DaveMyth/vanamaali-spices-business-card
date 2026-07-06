@@ -67,6 +67,24 @@
       letter-spacing: 0.2px;
     }
 
+    .btn-download {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 24px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-download:hover { background: #2a2a2a; }
+
     @media print {
       body { background: white; }
       .card { box-shadow: none; border: none; }
@@ -82,6 +100,12 @@
       <p>Scan to view digital business card</p>
     </div>
     <span class="url">card.vanamaalispices.in</span>
+    <button class="btn-download" onclick="downloadQR()">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <path d="M12 5v14m-7-7 7 7 7-7"/><path d="M5 20h14"/>
+      </svg>
+      Download PNG
+    </button>
   </div>
 
   <script>
@@ -93,6 +117,15 @@
       colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
+
+    function downloadQR() {
+      const canvas = document.querySelector('#qrcode canvas');
+      if (!canvas) return;
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/png');
+      a.download = 'vanamaali-qr.png';
+      a.click();
+    }
   </script>
 </body>
 </html>
