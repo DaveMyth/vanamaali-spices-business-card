@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kavitha J — Vanamaali Spices</title>
+  <meta name="description" content="Contact Kavitha J at Vanamaali Spices, Coimbatore." />
+  <meta property="og:title" content="Kavitha J — Vanamaali Spices" />
+  <meta property="og:description" content="Contact Kavitha J at Vanamaali Spices, Coimbatore." />
+  <meta property="og:type" content="profile" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:      #f5a623;
+      --accent-dim:  rgba(245,166,35,0.12);
+      --accent-glow: rgba(245,166,35,0.25);
+      --black:       #111111;
+      --surface:     #181818;
+      --line:        rgba(255,255,255,0.08);
+      --muted:       rgba(255,255,255,0.35);
+      --white:       #ffffff;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 48px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* top accent line */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 40%, var(--accent) 60%, transparent 100%);
+    }
+
+    /* subtle grid texture */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      border-radius: 20px;
+    }
+
+    /* ── Header ── */
+    .card-header {
+      padding: 32px 28px 26px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .logo-wrap {
+      width: 48px;
+      height: 48px;
+      background: var(--white);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      overflow: hidden;
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .status-dot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .status-dot::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .card-header h1 {
+      color: var(--white);
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .card-header .company {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── Divider ── */
+    .h-line {
+      height: 1px;
+      background: var(--line);
+      margin: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Fields ── */
+    .field-list {
+      padding: 8px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: background 0.15s;
+      position: relative;
+    }
+
+    .field::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 28px; right: 28px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .field:last-child::after { display: none; }
+
+    .field:hover { background: var(--accent-dim); }
+
+    .field:hover .field-label { color: var(--accent); }
+
+    .field-text { flex: 1; min-width: 0; }
+
+    .field-label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+      transition: color 0.15s;
+    }
+
+    .field-value {
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .field.address .field-value {
+      white-space: normal;
+      line-height: 1.5;
+      font-size: 0.875rem;
+    }
+
+    .copy-btn {
+      color: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+
+    .field:hover .copy-btn { color: var(--accent); }
+
+    .field.copied { background: var(--accent-dim); }
+    .field.copied .field-label { color: var(--accent); }
+    .field.copied .copy-btn svg { display: none; }
+    .field.copied .copy-btn::after {
+      content: "✓";
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    /* ── Actions ── */
+    .actions {
+      padding: 20px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 13px 12px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: 0.1px;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+    }
+
+    .btn-primary:hover { background: #f0a020; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.04); }
+
+    .btn-wa {
+      background: transparent;
+      color: #25d366;
+      border: 1px solid rgba(37,211,102,0.2);
+    }
+
+    .btn-wa:hover { background: rgba(37,211,102,0.06); border-color: rgba(37,211,102,0.4); }
+
+    /* ── Social ── */
+    .social-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 28px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      letter-spacing: 0.2px;
+    }
+
+    .social-btn:hover {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ── Footer ── */
+    .card-footer {
+      text-align: center;
+      padding: 0 28px 22px;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.3px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-footer a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+    }
+
+    .card-footer a:hover { color: var(--accent); }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--accent);
+      color: var(--black);
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s, transform 0.18s;
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="card-header">
+      <div class="header-top">
+        <div class="logo-wrap">
+          <img src="logo.png" alt="Vanamaali Spices" />
+        </div>
+        <div class="status-dot">Available</div>
+      </div>
+      <h1>Kavitha J</h1>
+      <div class="company">Vanamaali Spices</div>
+    </div>
+
+    <div class="h-line"></div>
+
+    <div class="field-list">
+
+      <div class="field" data-copy="+917598578895" onclick="copyField(this)" role="button" tabindex="0" aria-label="Copy phone number">
+        <div class="field-text">
+          <div class="field-label">Mobile</div>
+          <div class="field-value">+91 75985 78895</div>
+        </div>
+        <span class="copy-btn" aria-hidden="true">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </span>
+      </div>
+
+      <div class="field" data-copy="vanamaalispices@gmail.com" onclick="copyField(this)" role="button" tabindex="0" aria-label="Copy email address">
+        <div class="field-text">
+          <div class="field-label">Email</div>
+          <div class="field-value">vanamaalispices@gmail.com</div>
+        </div>
+        <span class="copy-btn" aria-hidden="true">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </span>
+      </div>
+
+      <div class="field address" data-copy="82, Krishna Park, Nehru Nagar, Kalapatti, Coimbatore - 641048" onclick="copyField(this)" role="button" tabindex="0" aria-label="Copy address">
+        <div class="field-text">
+          <div class="field-label">Office</div>
+          <div class="field-value">82, Krishna Park, Nehru Nagar,<br>Kalapatti, Coimbatore — 641048</div>
+        </div>
+        <span class="copy-btn" aria-hidden="true">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="h-line"></div>
+
+    <div class="actions">
+      <button class="btn btn-primary" onclick="downloadVCF()">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path d="M12 5v14m-7-7 7 7 7-7"/><path d="M5 20h14"/>
+        </svg>
+        Save Contact
+      </button>
+      <div class="btn-row">
+        <a class="btn btn-wa" href="https://wa.me/917598578895" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.099 1.508 5.831L.057 23.25l5.565-1.463A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.814 9.814 0 0 1-5.032-1.385l-.36-.214-3.733.981.999-3.638-.235-.374A9.787 9.787 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+          </svg>
+          WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="https://maps.app.goo.gl/f49Jk8yLHZfrB9vQ9" target="_blank" rel="noopener">
+          📍 Directions
+        </a>
+      </div>
+    </div>
+
+    <div class="h-line"></div>
+
+    <div class="social-row">
+      <a class="social-btn" href="https://www.instagram.com/vanamaalispices/" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+      <a class="social-btn" href="https://www.facebook.com/profile.php?id=61591443395574" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+        Facebook
+      </a>
+    </div>
+
+    <div class="card-footer">
+      <a href="https://vanamaalispices.in" target="_blank" rel="noopener">vanamaalispices.in</a>
+      &nbsp;·&nbsp; tap any field to copy
+    </div>
+
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    const VCF = `BEGIN:VCARD\r\nVERSION:3.0\r\nFN:Kavitha J\r\nN:J;Kavitha;;;\r\nORG:Vanamaali Spices\r\nTEL;TYPE=CELL,VOICE:+917598578895\r\nEMAIL;TYPE=INTERNET:vanamaalispices@gmail.com\r\nADR;TYPE=WORK:;;82\\, Krishna Park\\, Nehru Nagar\\, Kalapatti;Coimbatore;;641048;India\r\nLABEL;TYPE=WORK:82, Krishna Park, Nehru Nagar, Kalapatti, Coimbatore - 641048, India\r\nURL:https://vanamaalispices.in\r\nEND:VCARD`;
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function copyField(el) {
+      const text = el.dataset.copy;
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        el.classList.add('copied');
+        showToast('Copied!');
+        setTimeout(() => el.classList.remove('copied'), 1800);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Copied!');
+      });
+    }
+
+    function downloadVCF() {
+      const blob = new Blob([VCF], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Kavitha_J_Vanamaali.vcf';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Contact saved!');
+    }
+
+    document.querySelectorAll('.field[data-copy]').forEach(el => {
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyField(el); }
+      });
+    });
+  </script>
+</body>
+</html>
