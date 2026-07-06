@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QR Code — Vanamaali Spices</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -119,12 +120,16 @@
     });
 
     function downloadQR() {
-      const canvas = document.querySelector('#qrcode canvas');
-      if (!canvas) return;
-      const a = document.createElement('a');
-      a.href = canvas.toDataURL('image/png');
-      a.download = 'vanamaali-qr.png';
-      a.click();
+      html2canvas(document.querySelector('.card'), {
+        scale: 3,
+        backgroundColor: '#ffffff',
+        useCORS: true
+      }).then(canvas => {
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'vanamaali-qr.png';
+        a.click();
+      });
     }
   </script>
 </body>
